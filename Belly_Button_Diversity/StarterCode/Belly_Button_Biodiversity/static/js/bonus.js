@@ -77,43 +77,35 @@ function buildMetadata(sample) {
       var data2 = [trace2];
   
       Plotly.newPlot("pie", data2);
+      
+      
       // BONUS: Build the Gauge Chart
       buildGauge(data.WFREQ);
-      var gauge_data = [
-        {
-          type: "indicator",
-          mode: "gauge+number+delta",
-          value: 420,
-          title: { text: "Speed", font: { size: 24 } },
-          delta: { reference: 400, increasing: { color: "RebeccaPurple" } },
-          gauge: {
-            axis: { range: [null, 500], tickwidth: 1, tickcolor: "darkblue" },
-            bar: { color: "darkblue" },
-            bgcolor: "white",
-            borderwidth: 2,
-            bordercolor: "gray",
-            steps: [
-              { range: [0, 250], color: "cyan" },
-              { range: [250, 400], color: "royalblue" }
-            ],
-            threshold: {
-              line: { color: "red", width: 4 },
-              thickness: 0.75,
-              value: 490
-            }
-          }
-        }
-      ];
       
-      var layout = {
-        width: 500,
-        height: 400,
-        margin: { t: 25, r: 25, l: 25, b: 25 },
-        paper_bgcolor: "lavender",
-        font: { color: "darkblue", family: "Arial" }
-      };
-      
-      Plotly.newPlot("gauge", data, layout);
+        var opts = {
+            angle: 0.15, // The span of the gauge arc
+            lineWidth: 0.44, // The line thickness
+            radiusScale: 1, // Relative radius
+            pointer: {
+            length: 0.6, // // Relative to gauge radius
+            strokeWidth: 0.035, // The thickness
+            color: '#000000' // Fill color
+            },
+            limitMax: false,     // If false, max value increases automatically if value > maxValue
+            limitMin: false,     // If true, the min value of the gauge will be fixed
+            colorStart: '#6FADCF',   // Colors
+            colorStop: '#8FC0DA',    // just experiment with them
+            strokeColor: '#E0E0E0',  // to see which ones work best for you
+            generateGradient: true,
+            highDpiSupport: true,     // High resolution support
+            
+        };
+        var target = document.getElementById('data.wrfeq'); // your canvas element
+        var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
+        gauge.maxValue = 3000; // set max gauge value
+        gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
+        gauge.animationSpeed = 32; // set animation speed (32 is default value)
+        gauge.set(1250); // set actual value
     
       
 
